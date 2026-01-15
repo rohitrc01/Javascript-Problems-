@@ -13,7 +13,7 @@
 
 // ================= REGEX =================
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const INDIAN_MOBILE_REGEX = /\+\d{1,2}-\d{3}-\d{3}-\d{4}/;
+const MOBILE_REGEX = /\+\d{1,2}-\d{3}-\d{3}-\d{4}/;
 
 // ================= ASYNC EMAIL VALIDATION =================
 function validateEmail(email) {
@@ -29,7 +29,7 @@ function validateEmail(email) {
 function validatePhone(phone) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const isValid = INDIAN_MOBILE_REGEX.test(phone || "");
+      const isValid = MOBILE_REGEX.test(phone || "");
       resolve(isValid);
     }, 0);
   });
