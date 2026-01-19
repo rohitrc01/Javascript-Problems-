@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Async Specimen Search</title>
+  <style>
+    body { font-family: Arial; }
+    #loading { color: blue; }
+  </style>
+</head>
+<body>
+
+  <h2>Specimen Search</h2>
+
+  <input type="text" id="searchBox" placeholder="Enter specimen label" />
+  <p id="loading"></p>
+
+  <ul id="results"></ul>
+
+  <script>
+    const specimenData = [
+  "SP-1001-A",
+  "SP-1002-B",
+  "SP-2001-A",
+  "SP-3003-C",
+  "SP-4004-D"
+];
+
+const searchBox = document.getElementById("searchBox");
+const results = document.getElementById("results");
+const loading = document.getElementById("loading");
+
+// Simulated async operation
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function searchSpecimen(label) {
+  if (!label) {
+    results.innerHTML = "";
+    loading.textContent = "";
+    return;
+  }
+
+  loading.textContent = "Searching specimens...";
+
+  try {
+    // Simulate async work (database/search delay)
+    await delay(1500);
+
+    const matched = specimenData.filter(specimen =>
+      specimen.toLowerCase().includes(label.toLowerCase())
+    );
+
+    results.innerHTML = "";
+
+    matched.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      results.appendChild(li);
+    });
+
+  } catch (error) {
+    console.error(error);
+    loading.textContent = "Error during search";
+  } finally {
+    loading.textContent = "";
+  }
+}
+
+// Trigger async search on input
+searchBox.addEventListener("input", (e) => {
+  searchSpecimen(e.target.value);
+});
+
+  </script>
+</body>
+</html>
